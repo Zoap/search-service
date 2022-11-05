@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace SearchService.Api.Models
 {
-    public class SearchInput : ISearch
+    public class SearchInput : IService
     {
         public SearchInput(string name, double lat, double lng)
         {
@@ -65,9 +65,7 @@ namespace SearchService.Api.Models
         /// <returns></returns>
         public int GetSearchScore(string input)
         {
-            var score = 0;
-            _regex.Matches(input).ToList().ForEach(x => score += x.Length);
-            return score;
+            return _regex.Matches(input).Sum(x => x.Length);
         }
     }
 }
